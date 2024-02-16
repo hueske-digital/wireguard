@@ -1,0 +1,34 @@
+version: "3.5"
+
+services:
+  app:
+    image: lscr.io/linuxserver/wireguard
+    restart: unless-stopped
+    ports:
+      - 51820:51820/udp
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ
+      - SERVERURL
+      - SERVERPORT
+      - PEERS
+      - PEERDNS
+      - INTERNAL_SUBNET
+      - ALLOWEDIPS
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - app_data:/config
+      - /lib/modules:/lib/modules
+    labels:
+      backups: "true"
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    dns:
+      - "1.1.1.1"
+      - "1.0.0.1"
+
+volumes:
+  app_data:
