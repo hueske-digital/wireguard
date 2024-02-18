@@ -22,8 +22,6 @@ services:
     volumes:
       - app_data:/config
       - /lib/modules:/lib/modules
-    labels:
-      backups: "true"
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     dns:
